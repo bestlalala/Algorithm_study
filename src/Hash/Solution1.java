@@ -13,6 +13,13 @@ public class Solution1 {
                     sameName = true;
                 }
             }
+            if (sameName) {
+                // 동명이인이 있는 경우
+            }
+            else {
+                // 동명이인이 없는 경우
+
+            }
 
             int flag = 0;
             for (int j = 0; j < completion.length; j++) {
@@ -33,7 +40,6 @@ public class Solution1 {
         String[] completion = {"eden", "kiki"};
         Solution1 solution1 = new Solution1();
         System.out.println(solution1.solution(participant, completion));
-
     }
 
 }
