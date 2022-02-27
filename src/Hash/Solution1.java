@@ -1,37 +1,29 @@
 package Hash;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 public class Solution1 {
 
     public String solution(String[] participant, String[] completion) {
         String answer = "";
-        String member = "";
-        Boolean sameName = false;
+        HashMap<String, Integer> map = new HashMap<>();
+        for (String player : participant)
+            map.put(player, map.getOrDefault(player, 0) + 1);
+        for (String player : completion)
+            map.put(player, map.get(player) - 1);
 
-        for (int i = 0; i < participant.length; i++) {
-            for (int j = i+1; j < participant.length-1; j++) {
-                if (participant[i] == participant[j]) {
-                    sameName = true;
-                }
-            }
-            if (sameName) {
-                // 동명이인이 있는 경우
-            }
-            else {
-                // 동명이인이 없는 경우
+        Iterator<Map.Entry<String, Integer>> iter = map.entrySet().iterator();
 
+        while (iter.hasNext()) {
+            Map.Entry<String, Integer> entry = iter.next();
+            if (entry.getValue() != 0) {
+                answer = entry.getKey();
+                break;
             }
-
-            int flag = 0;
-            for (int j = 0; j < completion.length; j++) {
-                if (participant[i] == completion[j]) {
-                    flag = 1;
-                }
-            }
-            if (flag == 0) {
-                answer = participant[i] + "는 참여자 명단에는 있지만, 완주자 명단에는 없기 때문에 완주하지 못했습니다.";
-            }
+            return answer;
         }
-
         return answer;
     }
 
