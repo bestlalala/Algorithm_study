@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+// 완주하지 못한 선수
 public class Solution1 {
 
     public String solution(String[] participant, String[] completion) {
@@ -14,22 +15,28 @@ public class Solution1 {
         for (String player : completion)
             map.put(player, map.get(player) - 1);
 
-        Iterator<Map.Entry<String, Integer>> iter = map.entrySet().iterator();
-
-        while (iter.hasNext()) {
-            Map.Entry<String, Integer> entry = iter.next();
-            if (entry.getValue() != 0) {
-                answer = entry.getKey();
+        for (String key : map.keySet()) {
+            if (map.get(key) != 0) {
+                answer = key;
                 break;
             }
-            return answer;
         }
+
+//        Iterator<Map.Entry<String, Integer>> iter = map.entrySet().iterator();
+//
+//        while (iter.hasNext()) {
+//            Map.Entry<String, Integer> entry = iter.next();
+//            if (entry.getValue() != 0) {
+//                answer = entry.getKey();
+//                break;
+//            }
+//        }
         return answer;
     }
 
     public static void main(String[] args) {
-        String[] participant = {"leo", "kiki", "eden"};
-        String[] completion = {"eden", "kiki"};
+        String[] participant = {"mislav", "stanko", "mislav", "ana"};
+        String[] completion = {"stanko", "ana", "mislav"};
         Solution1 solution1 = new Solution1();
         System.out.println(solution1.solution(participant, completion));
     }
