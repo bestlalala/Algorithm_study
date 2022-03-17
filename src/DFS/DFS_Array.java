@@ -30,6 +30,8 @@ public class DFS_Array {
         dfs_array_recursion(v, adjArray, visited);
 
         Arrays.fill(visited, false); // 스택 DFS를 위해 visited 배열 초기화
+
+        dfs_array_stack(v, adjArray, visited, true);
     }
 
     public static void dfs_array_recursion(int v, int[][] adjArray, boolean[] visited) {
