@@ -1,4 +1,4 @@
-# 9205번. 맥주 마시면서 걸아가기
+# 9205번. 맥주 마시면서 걸어가기
 from collections import deque
 
 
