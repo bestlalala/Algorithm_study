@@ -1,39 +1,29 @@
-# 2178번. 미로 찾기
+# 2178번. 미로 탐색
 
-from collections import deque
+import sys
+import collections
+input = sys.stdin.readline
 
 n, m = map(int, input().split())
+mymap = [[int(i) for i in input().rstrip()] for _ in range(n)]
 
-graph = []
-for _ in range(n):
-    graph.append(list(map(int, input())))
+# 상하좌우
+dr = [1, -1, 0, 0]
+dc = [0, 0, -1, 1]
 
-# 상 하 좌 우
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
-
-
-def bfs(x, y):
-    queue = deque()
-    queue.append((x, y))
-
-    while queue:
-        x, y = queue.popleft()
-
+def bfs(r, c):
+    que = collections.deque([(r, c)])
+    
+    while que:
+        r, c = que.popleft()  # 현재 위치 및 이동 거리
+         
         for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-
-            if nx < 0 or nx >= n or ny < 0 or ny >= m:
-                continue
-
-            if graph[nx][ny] == 0:
-                continue
-
-            if graph[nx][ny] == 1:
-                graph[nx][ny] = graph[x][y] + 1
-                queue.append((nx, ny))
-
-    return graph[n-1][m-1]
+            nr, nc = r + dr[i], c + dc[i]
+            
+            if 0 <= nr < n and 0 <= nc < m and mymap[nr][nc] == 1:
+                mymap[nr][nc] = mymap[r][c] + 1     # 거리 계산
+                que.append((nr, nc))
+    
+    return mymap[n-1][m-1]
 
 print(bfs(0, 0))
