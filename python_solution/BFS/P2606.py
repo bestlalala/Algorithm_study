@@ -1,27 +1,38 @@
 # 2606번. 바이러스
 
-n = int(input())
-m = int(input())
+import sys
+import collections
+input = sys.stdin.readline
 
-adj = [[0]*(n+1) for _ in range(n+1)]
-visited = [0] * (n+1)
+n = int(input().rstrip())   # 컴퓨터의 수
+m = int(input().rstrip())   # 네트워크 상에서 직접 연결되어 있는 컴퓨터 쌍의 수
 
-global cnt
-cnt = 0
+coms = collections.defaultdict(set)
+visited = collections.defaultdict(bool)
 
-for i in range(m):
-    x, y = map(int, input().split())
-    adj[x][y] = adj[y][x] = 1
+for _ in range(m):
+    a, b = map(int, input().rstrip().split())
+    coms[a].add(b)
+    coms[b].add(a)
 
+for i in range(n):
+    visited[i+1] = False
 
 def bfs(v):
-    visited[v] = 1
-    global cnt
-    for i in range(n+1):
-        if visited[i] == 0 and adj[v][i] == 1:
-            bfs(i)
-            cnt += 1
+    que = collections.deque([v])
+    cnt = 0
+    
+    while que:
+        v = que.popleft()
+        cnt += 1
+        visited[v] = True
+        
+        while coms[v]:
+            c = coms[v].pop()
+            if not visited[c] and c not in que:
+                que.append(c)
+                coms[c].remove(v)
+    
+    return cnt
 
-
-bfs(1)
-print(cnt)
+print(bfs(1)-1)
