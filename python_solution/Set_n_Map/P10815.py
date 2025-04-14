@@ -1,15 +1,19 @@
-# 10815번 - 숫자 카드
+# 10815번. 숫자 카드
+
 import sys
 input = sys.stdin.readline
 
 n = int(input())
-nums = set(int(n) for n in input().split())
+card = set(list(map(int, input().split())))
 
 m = int(input())
-cards = [int(n) for n in input().split()]
+nums = list(map(int, input().split()))
 
-for i in cards:
-    if i in nums:
-        print(1, end=' ')
+res = ''
+for num in nums:
+    if num in card:
+        res += '1'
     else:
-        print(0, end=' ')
+        res += '0'
+
+print(' '.join(res))
